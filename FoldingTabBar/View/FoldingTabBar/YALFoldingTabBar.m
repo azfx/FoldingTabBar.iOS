@@ -450,6 +450,14 @@ typedef NS_ENUM(NSUInteger, YALAnimatingState) {
     if ([self.delegate respondsToSelector:@selector(tabBarViewWillCollapse:)]) {
         [self.delegate tabBarViewWillCollapse:self];
     }
+    
+    //az
+    
+    //set center button image to currently selected bar item image
+    YALTabBarItem *item = [self.allBarItems objectAtIndex:index];
+    UIImage *image = item.itemImage;
+    [self.centerButton setImage: image forState:UIControlStateNormal];
+    //end az
 
     [self collapse];
     
@@ -482,6 +490,11 @@ typedef NS_ENUM(NSUInteger, YALAnimatingState) {
     }
     
     __block NSUInteger counterCurrentValue = self.counter;
+    
+    //az
+    // revert back to pre-defined center button image
+    [self.centerButton setImage:[self.dataSource centerImageInTabBarView:self] forState:UIControlStateNormal];
+    //end az
     
     [CATransaction transactionWithAnimations:^{
         self.isAnimated = YES;
